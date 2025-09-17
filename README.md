@@ -1,0 +1,2 @@
+# Cursor
+Repository for Cursor
