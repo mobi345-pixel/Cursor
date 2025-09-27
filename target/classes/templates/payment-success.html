@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-home"></i>
+                Guest House Reservation System
+            </h1>
+            <nav class="nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="success-section">
+            <div class="container">
+                <div class="success-container">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    
+                    <h1 class="success-title">Payment Successful!</h1>
+                    <p class="success-message">
+                        Your payment has been processed successfully. Your booking is now confirmed and you will receive a confirmation email shortly.
+                    </p>
+                    
+                    <div class="booking-confirmation">
+                        <h2>Booking Confirmed</h2>
+                        <div class="confirmation-details">
+                            <div class="confirmation-item">
+                                <span class="confirmation-label">Booking ID:</span>
+                                <span class="confirmation-value" th:text="${booking.id}">#12345</span>
+                            </div>
+                            <div class="confirmation-item">
+                                <span class="confirmation-label">Guest House:</span>
+                                <span class="confirmation-value" th:text="${booking.room.guestHouse.name}">Guest House Name</span>
+                            </div>
+                            <div class="confirmation-item">
+                                <span class="confirmation-label">Room:</span>
+                                <span class="confirmation-value" th:text="${booking.room.roomNumber} + ' (' + ${booking.room.roomType} + ')'">Room Details</span>
+                            </div>
+                            <div class="confirmation-item">
+                                <span class="confirmation-label">Check-in:</span>
+                                <span class="confirmation-value" th:text="${booking.checkInDate}">Date</span>
+                            </div>
+                            <div class="confirmation-item">
+                                <span class="confirmation-label">Check-out:</span>
+                                <span class="confirmation-value" th:text="${booking.checkOutDate}">Date</span>
+                            </div>
+                            <div class="confirmation-item">
+                                <span class="confirmation-label">Guests:</span>
+                                <span class="confirmation-value" th:text="${booking.numberOfGuests}">Number</span>
+                            </div>
+                            <div class="confirmation-item">
+                                <span class="confirmation-label">Total Paid:</span>
+                                <span class="confirmation-value">$<span th:text="${booking.totalAmount}">0.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-steps">
+                        <h3>What happens next?</h3>
+                        <ul>
+                            <li><i class="fas fa-envelope"></i> Confirmation email sent to your registered email</li>
+                            <li><i class="fas fa-calendar"></i> Check-in on your arrival date</li>
+                            <li><i class="fas fa-star"></i> Enjoy your stay!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="/" class="btn btn-primary">
+                            <i class="fas fa-home"></i>
+                            Back to Home
+                        </a>
+                        <button class="btn btn-secondary" onclick="window.print()">
+                            <i class="fas fa-print"></i>
+                            Print Confirmation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Guest House Reservation System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

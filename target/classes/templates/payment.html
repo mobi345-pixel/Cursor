@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-home"></i>
+                Guest House Reservation System
+            </h1>
+            <nav class="nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="payment-section">
+            <div class="container">
+                <div class="payment-container">
+                    <div class="payment-header">
+                        <h1>Complete Your Payment</h1>
+                        <p>Secure payment processing</p>
+                    </div>
+                    
+                    <div class="payment-content">
+                        <div class="booking-summary">
+                            <h2>Booking Summary</h2>
+                            <div class="summary-details">
+                                <div class="summary-item">
+                                    <span class="summary-label">Guest House:</span>
+                                    <span class="summary-value" th:text="${booking.room.guestHouse.name}">Guest House Name</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Room:</span>
+                                    <span class="summary-value" th:text="${booking.room.roomNumber} + ' (' + ${booking.room.roomType} + ')'">Room Details</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Check-in:</span>
+                                    <span class="summary-value" th:text="${booking.checkInDate}">Date</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Check-out:</span>
+                                    <span class="summary-value" th:text="${booking.checkOutDate}">Date</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Guests:</span>
+                                    <span class="summary-value" th:text="${booking.numberOfGuests}">Number</span>
+                                </div>
+                                <div class="summary-item total">
+                                    <span class="summary-label">Total Amount:</span>
+                                    <span class="summary-value">$<span th:text="${payment.amount}">0.00</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-form-container">
+                            <h2>Payment Information</h2>
+                            <form th:action="@{'/payment/process/' + ${booking.id}}" method="post" class="payment-form">
+                                <div class="payment-methods">
+                                    <h3>Choose Payment Method</h3>
+                                    <div class="payment-options">
+                                        <label class="payment-option">
+                                            <input type="radio" name="paymentMethod" value="credit_card" checked>
+                                            <span class="payment-icon">
+                                                <i class="fas fa-credit-card"></i>
+                                            </span>
+                                            <span class="payment-text">Credit Card</span>
+                                        </label>
+                                        <label class="payment-option">
+                                            <input type="radio" name="paymentMethod" value="debit_card">
+                                            <span class="payment-icon">
+                                                <i class="fas fa-credit-card"></i>
+                                            </span>
+                                            <span class="payment-text">Debit Card</span>
+                                        </label>
+                                        <label class="payment-option">
+                                            <input type="radio" name="paymentMethod" value="bank_transfer">
+                                            <span class="payment-icon">
+                                                <i class="fas fa-university"></i>
+                                            </span>
+                                            <span class="payment-text">Bank Transfer</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="transactionId">Transaction ID *</label>
+                                    <input type="text" id="transactionId" name="transactionId" 
+                                           placeholder="Enter your transaction ID" required>
+                                    <small>You will receive this ID after completing payment with your bank</small>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-large">
+                                        <i class="fas fa-check"></i>
+                                        Confirm Payment
+                                    </button>
+                                </div>
+                            </form>
+                            
+                            <div class="payment-note">
+                                <h3>Payment Instructions</h3>
+                                <ol>
+                                    <li>Complete payment with your chosen method</li>
+                                    <li>Note down the transaction ID provided</li>
+                                    <li>Enter the transaction ID above</li>
+                                    <li>Click "Confirm Payment" to complete your booking</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Guest House Reservation System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

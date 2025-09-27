@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Room</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-home"></i>
+                Guest House Reservation System
+            </h1>
+            <nav class="nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="breadcrumb">
+            <div class="container">
+                <nav class="breadcrumb-nav">
+                    <a href="/" class="breadcrumb-link">Home</a>
+                    <span class="breadcrumb-separator">></span>
+                    <a th:href="@{'/city/' + ${room.guestHouse.city.name}}" th:text="${room.guestHouse.city.name}" class="breadcrumb-link">City</a>
+                    <span class="breadcrumb-separator">></span>
+                    <a th:href="@{'/guesthouse/' + ${room.guestHouse.id}}" th:text="${room.guestHouse.name}" class="breadcrumb-link">Guest House</a>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-current">Book Room</span>
+                </nav>
+            </div>
+        </section>
+
+        <section class="booking-section">
+            <div class="container">
+                <div class="booking-container">
+                    <div class="room-summary">
+                        <h2>Room Details</h2>
+                        <div class="room-card">
+                            <div class="room-image">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="room-content">
+                                <h3 th:text="${room.roomNumber}" class="room-number"></h3>
+                                <p th:text="${room.roomType}" class="room-type"></p>
+                                <p th:text="${room.description}" class="room-description"></p>
+                                <div class="room-details">
+                                    <span class="room-capacity">
+                                        <i class="fas fa-users"></i>
+                                        <span th:text="${room.capacity}">0</span> guests
+                                    </span>
+                                    <span class="room-price">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        $<span th:text="${room.pricePerNight}">0</span>/night
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-dates">
+                            <h3>Booking Dates</h3>
+                            <div class="date-info">
+                                <div class="date-item">
+                                    <span class="date-label">Check-in:</span>
+                                    <span class="date-value" th:text="${checkIn}">Date</span>
+                                </div>
+                                <div class="date-item">
+                                    <span class="date-label">Check-out:</span>
+                                    <span class="date-value" th:text="${checkOut}">Date</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="booking-form-container">
+                        <h2>Guest Information</h2>
+                        <form th:action="@{/booking/create}" th:object="${booking}" method="post" class="booking-form">
+                            <input type="hidden" th:field="*{room.id}" th:value="${room.id}">
+                            <input type="hidden" th:field="*{checkInDate}" th:value="${checkIn}">
+                            <input type="hidden" th:field="*{checkOutDate}" th:value="${checkOut}">
+                            
+                            <div class="form-group">
+                                <label for="guestName">Full Name *</label>
+                                <input type="text" id="guestName" th:field="*{guestName}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guestEmail">Email Address *</label>
+                                <input type="email" id="guestEmail" th:field="*{guestEmail}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guestPhone">Phone Number *</label>
+                                <input type="tel" id="guestPhone" th:field="*{guestPhone}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guestAddress">Address *</label>
+                                <textarea id="guestAddress" th:field="*{guestAddress}" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="numberOfGuests">Number of Guests *</label>
+                                <select id="numberOfGuests" th:field="*{numberOfGuests}" required>
+                                    <option value="">Select number of guests</option>
+                                    <option th:each="i : ${#numbers.sequence(1, room.capacity)}" 
+                                            th:value="${i}" 
+                                            th:text="${i}">1</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="specialRequests">Special Requests</label>
+                                <textarea id="specialRequests" th:field="*{specialRequests}" rows="3" 
+                                         placeholder="Any special requests or notes..."></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-large">
+                                    <i class="fas fa-credit-card"></i>
+                                    Proceed to Payment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Guest House Reservation System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>
