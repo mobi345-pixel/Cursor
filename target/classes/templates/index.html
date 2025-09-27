@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest House Reservation System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-home"></i>
+                Guest House Reservation System
+            </h1>
+            <nav class="nav">
+                <a href="/" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Find Your Perfect Guest House</h2>
+                    <p class="hero-subtitle">Discover comfortable accommodations in Pakistan's most beautiful cities</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cities-section">
+            <div class="container">
+                <h2 class="section-title">Choose Your Destination</h2>
+                <div class="cities-grid">
+                    <div th:each="city : ${cities}" class="city-card">
+                        <div class="city-image">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <h3 th:text="${city.name}" class="city-name"></h3>
+                        <p class="city-description">Explore guest houses in this beautiful city</p>
+                        <a th:href="@{'/city/' + ${city.name}}" class="btn btn-primary">
+                            View Guest Houses
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Why Choose Our Service?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Easy Booking</h3>
+                        <p>Simple and intuitive booking process with real-time availability</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure Payment</h3>
+                        <p>Safe and secure payment processing with instant confirmation</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email Confirmation</h3>
+                        <p>Receive instant booking confirmation via email</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Guest House Reservation System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

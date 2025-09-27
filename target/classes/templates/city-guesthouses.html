@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Guest Houses in ' + ${cityName}">Guest Houses</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-home"></i>
+                Guest House Reservation System
+            </h1>
+            <nav class="nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="breadcrumb">
+            <div class="container">
+                <nav class="breadcrumb-nav">
+                    <a href="/" class="breadcrumb-link">Home</a>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-current" th:text="${cityName}">City</span>
+                </nav>
+            </div>
+        </section>
+
+        <section class="guesthouses-section">
+            <div class="container">
+                <h2 class="section-title" th:text="'Guest Houses in ' + ${cityName}">Guest Houses</h2>
+                
+                <div th:if="${guestHouses.empty}" class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>No guest houses found</h3>
+                    <p>We're working on adding more guest houses in this city.</p>
+                    <a href="/" class="btn btn-primary">Back to Home</a>
+                </div>
+
+                <div th:unless="${guestHouses.empty}" class="guesthouses-grid">
+                    <div th:each="guestHouse : ${guestHouses}" class="guesthouse-card">
+                        <div class="guesthouse-image">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="guesthouse-content">
+                            <h3 th:text="${guestHouse.name}" class="guesthouse-name"></h3>
+                            <p th:text="${guestHouse.address}" class="guesthouse-address"></p>
+                            <p th:text="${guestHouse.description}" class="guesthouse-description"></p>
+                            <div class="guesthouse-stats">
+                                <span class="stat">
+                                    <i class="fas fa-bed"></i>
+                                    <span th:text="${#lists.size(guestHouse.rooms)}">0</span> rooms
+                                </span>
+                            </div>
+                            <a th:href="@{'/guesthouse/' + ${guestHouse.id}}" class="btn btn-primary">
+                                View Details
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Guest House Reservation System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>
